@@ -1,2 +1,4 @@
 # PCP_Solver
-This Goal of this script is to find a fast solution to the PCP-Problem having the option to also give a never ending output off all possible solutions. 
+This script is designed to solve the PCP-problem as efficient as possible. The PCP Problem is a semi-decidable problem. The Input is a list of tuples/pairs of a finite alphabet and the output can be either one of the shortest possible sequenzes or an infinite list of all possible sequenzes.
+# PCP_Problem
+![pcp_problem](pictures/pcp_problem_def.png)
