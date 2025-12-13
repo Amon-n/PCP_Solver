@@ -2,13 +2,14 @@
 import time
 import sys
 import argparse
-import Organizer
+from Organizer import Organizer
 from PcpTuple import PcpTuple
-import Sequence
+from Sequence import Sequence
 
 """Universal variables"""
 pcp_list : list[PcpTuple] = []
 FIRST_SOLUTION = False
+organizer = Organizer()
 
 def intro_text():
     for i in range (4):
@@ -38,7 +39,14 @@ def intro_text():
 
 
 def init_organizer():
-    # TODO: fill the organizer
+    for temp_pcp_tuple in pcp_list:
+        temp_tuple = temp_pcp_tuple.pcp_tuple
+        if temp_tuple[0][0] == temp_tuple[1][0]:
+            new_sequence = Sequence(temp_pcp_tuple)
+            organizer.append(new_sequence)
+    
+    organizer.set_start_seq()
+    print(organizer.get_start_seq())
     return
 
 def main():
@@ -66,6 +74,8 @@ def main():
     print("All tuples are entered, calculating...")
     for i in range (tuple_count-1):
         print(f"debug: {pcp_list[i]}")
+
+    init_organizer()
 
 if __name__ == "__main__":
     main()

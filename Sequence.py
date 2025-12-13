@@ -9,6 +9,9 @@ class Sequence:
         self.missing : str = ""
         self.more_in_first : bool = True # True => more in first part of tuple
 
+    def get_queue(self):
+        return self.pcp_queue
+
     def get_copy(self):
         return copy.deepcopy(self)
 
