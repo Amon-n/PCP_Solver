@@ -1,5 +1,6 @@
 def main():
     """Main entry point of the program."""
+    print("Hello world!")
     pass
 
 
