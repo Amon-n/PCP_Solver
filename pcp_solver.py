@@ -41,12 +41,14 @@ def intro_text():
 def init_organizer():
     for temp_pcp_tuple in pcp_list:
         temp_tuple = temp_pcp_tuple.pcp_tuple
-        if temp_tuple[0][0] == temp_tuple[1][0]:
+        #find the length of the shorter element
+        elem_length = min(len(temp_tuple[0]),len(temp_tuple[1]))
+        if temp_tuple[0][:elem_length] == temp_tuple[1][:elem_length]:
             new_sequence = Sequence(temp_pcp_tuple)
             organizer.append(new_sequence)
     
-    organizer.set_start_seq()
-    print(organizer.get_start_seq())
+    organizer.set_start_seq() # The amount of Start sequences is set here
+    print(f"There are {organizer.start_seq} possible tuples to begin with...")
     return
 
 def main():
