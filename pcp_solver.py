@@ -74,10 +74,23 @@ def main():
         except:
             print("Your last input is incorrect, please check your input and try again")
     print("All tuples are entered, calculating...")
-    for i in range (tuple_count-1):
-        print(f"debug: {pcp_list[i]}")
-
+    """for i in range (tuple_count-1):
+         print(f"debug: {pcp_list[i]}")"""
     init_organizer()
+    while not (organizer.queue.empty()):
+        focused_sequence = organizer.pull_first()
+        for temp in pcp_list:
+            if focused_sequence.is_appendable(temp):
+                new_sequence = focused_sequence
+                if new_sequence.add_tuple(temp):
+                    print("Solution Sequence:", end=" ")
+                    for i in new_sequence.queue:
+                        printf(i.id, end = " ")
+                    if parser.first_solution:
+                        return
+                else: 
+                    organizer.append(new_sequence)
+
 
 if __name__ == "__main__":
     main()

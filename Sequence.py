@@ -5,21 +5,21 @@ import copy
 class Sequence:
     def __init__(self, start_tuple : PcpTuple):
         self.pcp_queue : Queue[PcpTuple] = Queue()
-        self.pcp_queue.put(start_tuple)
+        self.add_tuple(start_tuple)
         self.missing : str = ""
-        self.first_string : str = start_tuplele[0] 
-        self.second_string : str = start_tuple[1] 
+        self.first_string : str = "" 
+        self.second_string : str = "" 
         self.more_in_first : bool = True # true => more in first part of tuple
 
     # this method can be called when a tuple is beeing added to the sequence so that the missing var is updated
-    def __add_to_missing(self, pcp_tuple : pcpTuple) -> bool:
+    def __add_to_missing(self, pcp_tuple : PcpTuple) -> bool:
         self.first_string = self.first_string + pcp_tuple[0]
         self.second_string = self.second_string + pcp_tuple[1]
         if len(self.first_string) == len(self.second_string):
             return True
         elif len (self.first_string) > len(self.second_string):
             self.more_in_first = True
-            self.missing = first_string[len(second_string):]
+            self.missing = self.first_string[len(self.second_string):]
         else:
             self.more_in_first = False
             self.missing = second_string[len(first_string):]
@@ -35,7 +35,7 @@ class Sequence:
         shorter, longer = sorted((concatination, other_string), key=len)
         return longer.startswith(shorter)
 
-    def add_tupel(self, pcp_tuple : PcpTuple):
+    def add_tuple(self, pcp_tuple : PcpTuple):
         self.pcp_queue.put(pcp_tuple)
         return self.__add_to_missing(pcp_tuple) # returns if sequence is over
     
