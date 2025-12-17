@@ -15,8 +15,8 @@ class Organizer:
         self.start_seq = self.temp_seq
 
     def pull_first(self):
-        self.queue.get()
         self.temp_seq -= 1
+        return self.queue.get()
 
     def get_temp_seq(self):
         return self.temp_seq

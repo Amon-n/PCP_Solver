@@ -69,7 +69,7 @@ def main():
         try:
             x,y = input_message.split(' ')
             pcp_list.append(PcpTuple(tuple_count,(x,y)))
-            print(f"debug:{pcp_list[0]}")
+            print(f"debug:{pcp_list[tuple_count - 1]}")
             tuple_count += 1
         except:
             print("Your last input is incorrect, please check your input and try again")
@@ -81,12 +81,12 @@ def main():
         focused_sequence = organizer.pull_first()
         for temp in pcp_list:
             if focused_sequence.is_appendable(temp):
-                new_sequence = focused_sequence
+                new_sequence = focused_sequence.copy()
                 if new_sequence.add_tuple(temp):
                     print("Solution Sequence:", end=" ")
-                    for i in new_sequence.queue:
-                        printf(i.id, end = " ")
-                    if parser.first_solution:
+                    for i in new_sequence.pcp_queue:
+                        print(i.id, end = " ")
+                    if FIRST_SOLUTION:
                         return
                 else: 
                     organizer.append(new_sequence)
