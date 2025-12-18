@@ -5,8 +5,6 @@ class Sequence:
     def __init__(self, start_tuple : PcpTuple):
         self.pcp_queue : List[PcpTuple] = []
         self.missing : str = ""
-        self.first_string : str = "" 
-        self.second_string : str = "" 
         self.more_in_first : bool = True # true => more in first part of tuple
 
         self.add_tuple(start_tuple)
@@ -16,17 +14,23 @@ class Sequence:
 
     # this method can be called when a tuple is beeing added to the sequence so that the missing var is updated
     def __add_to_missing(self, pcp_tuple : PcpTuple) -> bool:
-        self.first_string = self.first_string + pcp_tuple.pcp_tuple[0]
-        self.second_string = self.second_string + pcp_tuple.pcp_tuple[1]
-        if len(self.first_string) == len(self.second_string):
-            return True
-        elif len(self.first_string) > len(self.second_string):
-            self.more_in_first = True
-            self.missing = self.first_string[len(self.second_string):]
+        if self.more_in_first:
+            first_string = self.missing + pcp_tuple.pcp_tuple[0]
+            second_string = pcp_tuple.pcp_tuple[1]
         else:
+            first_string = pcp_tuple.pcp_tuple[0]
+            second_string = self.missing + pcp_tuple.pcp_tuple[1]
+        if len(first_string) < len(second_string):
+            self.missing = second_string[len(first_string):]
             self.more_in_first = False
-            self.missing = self.second_string[len(self.first_string):]
-        return False
+            return False
+        elif len(first_string) > len(second_string):
+            self.missing = first_string[len(second_string):]
+            self.more_in_first = True
+            return False
+        else:
+            return True
+            
 
     def is_appendable(self, pcp_tuple : PcpTuple) -> bool:
         if self.more_in_first:
@@ -48,6 +52,7 @@ class Sequence:
             return concatination.startswith(other_string)
 
     def add_tuple(self, pcp_tuple : PcpTuple):
+
         self.pcp_queue.append(pcp_tuple)
         return self.__add_to_missing(pcp_tuple) # returns if sequence is over
     
@@ -55,7 +60,5 @@ class Sequence:
         new_seq = Sequence.__new__(Sequence)
         new_seq.pcp_queue = self.pcp_queue.copy()
         new_seq.missing = self.missing
-        new_seq.first_string = self.first_string
-        new_seq.second_string = self.second_string
         new_seq.more_in_first = self.more_in_first
         return new_seq

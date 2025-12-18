@@ -60,6 +60,7 @@ def main():
                     return
                 else: 
                     organizer.append(new_sequence)
+    print("There is no solution to your Problem")
 
 
 if __name__ == "__main__":
