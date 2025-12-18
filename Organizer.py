@@ -6,10 +6,15 @@ class Organizer:
         self.temp_seq = 0
         self.start_seq = 0 #dachte ist einfach nett so
         self.queue : Queue[Sequence] = Queue()
+        self.missing_tuples : List[missing_tuple : tuple[bool, str]] = []
 
     def append(self, new_sequence : Sequence):
-        self.queue.put(new_sequence)
-        self.temp_seq += 1
+        sequence_missing : tuple[bool, str] = (new_sequence.more_in_first, new_sequence.missing)
+        if sequence_missing not in self.missing_tuples:
+            self.missing_tuples.append(sequence_missing)
+            self.queue.put(new_sequence)
+            self.temp_seq += 1
+            return
 
     def set_start_seq(self):
         self.start_seq = self.temp_seq
