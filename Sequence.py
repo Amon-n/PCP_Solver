@@ -10,7 +10,9 @@ class Sequence:
         self.more_in_first : bool = True # true => more in first part of tuple
 
         self.add_tuple(start_tuple)
-
+        # debug:print(f"Sequence made with tuple:{self.pcp_queue[0]}")
+        # debug:print(self.first_string)
+        # debug:print(self.second_string)
 
     # this method can be called when a tuple is beeing added to the sequence so that the missing var is updated
     def __add_to_missing(self, pcp_tuple : PcpTuple) -> bool:
@@ -18,7 +20,7 @@ class Sequence:
         self.second_string = self.second_string + pcp_tuple.pcp_tuple[1]
         if len(self.first_string) == len(self.second_string):
             return True
-        elif len (self.first_string) > len(self.second_string):
+        elif len(self.first_string) > len(self.second_string):
             self.more_in_first = True
             self.missing = self.first_string[len(self.second_string):]
         else:
@@ -28,14 +30,21 @@ class Sequence:
 
     def is_appendable(self, pcp_tuple : PcpTuple) -> bool:
         if self.more_in_first:
-            concatination = self.missing + pcp_tuple.pcp_tuple[1]
-            other_string = pcp_tuple.pcp_tuple[0]
-        else:
             concatination = self.missing + pcp_tuple.pcp_tuple[0]
             other_string = pcp_tuple.pcp_tuple[1]
+            # debug:print(concatination)
+            # debug:print(other_string)
+        else:
+            concatination = self.missing + pcp_tuple.pcp_tuple[1]
+            other_string = pcp_tuple.pcp_tuple[0]
+            # debug:print(other_string)
+            # debug:print(concatination)
+
         if len(concatination) <= len(other_string):
+            # debug:print(f"is_appendable = {other_string.startswith(concatination)}")
             return other_string.startswith(concatination)
         else:
+            # debug:print(f"is_appendable = {concatination.startswith(other_string)}")
             return concatination.startswith(other_string)
 
     def add_tuple(self, pcp_tuple : PcpTuple):
