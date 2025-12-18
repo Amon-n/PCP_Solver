@@ -1,0 +1,5 @@
+-get rid of argparse and the whole flag thing
+-add a second list to organizer
+-new method for organizer
+-change while loop to work through all the different length
+=>main thought: get rid of sequences that are missing the same thing

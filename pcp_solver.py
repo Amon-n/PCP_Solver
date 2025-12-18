@@ -1,7 +1,6 @@
 """Imports"""
 import time
 import sys
-import argparse
 from Organizer import Organizer
 from PcpTuple import PcpTuple
 from Sequence import Sequence
@@ -26,12 +25,6 @@ def init_organizer():
 
 def main():
     """Main entry point of the program."""
-    parser = argparse.ArgumentParser(prog="pcp_solver")
-    parser.add_argument("--first-solution", action="store_true",
-                        help="Stop after the first solution")
-    args = parser.parse_args()
-    global FIRST_SOLUTION
-    FIRST_SOLUTION = args.first_solution
 
     print("To add a tuple please write a blank space between the elements then press Enter. " \
     " When you are done simply enter # once.")
@@ -54,6 +47,7 @@ def main():
     while not (organizer.queue.empty()):
         focused_sequence = organizer.pull_first()
         print(f"We have reached a sequence lenth of {len(focused_sequence.pcp_queue)}", end="\r")
+        # still hast to be fixed:print(f"Options: {len(organizer.queue)}", end="\r")
         for temp in pcp_list:
             # debug:print(f"checking with Tuple{temp}")
 
@@ -63,8 +57,7 @@ def main():
                     print("Solution Sequence:", end=" ")
                     for i in new_sequence.pcp_queue:
                         print(i.id, end = ",")
-                    if FIRST_SOLUTION:
-                        return
+                    return
                 else: 
                     organizer.append(new_sequence)
 
